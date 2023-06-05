@@ -1,9 +1,15 @@
 const express = require("express");
 const app = express();
 const moment = require("moment");
+const cors = require("cors");
 
 const port = 8000;
 
+app.use(
+  cors({
+    origin: "*", //! Allow from anywhere, change this to the frontend URL
+  })
+);
 app.get("/", (req, res) => {
   console.log("GET /");
   res.setHeader("Content-Type", "text/event-stream");
