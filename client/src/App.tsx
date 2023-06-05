@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const eventSource = new EventSource("http://localhost:8000");
-  const [messages, setMessages] = React.useState<string[]>([]);
+  const [messages, setMessages] = useState<string[]>([]);
 
-  eventSource.onmessage = (event) => {
-    setMessages((messages) => [...messages, event.data]);
-  };
+  useEffect(() => {
+    const eventSource = new EventSource(
+      "https://server-sent-event.onrender.com"
+    );
 
-  eventSource.onerror = () => {
-    console.log("EventSource failed.");
-    eventSource.close();
-  };
+    eventSource.onmessage = (event) => {
+      setMessages((prev) => [...prev, event.data]);
+    };
+
+    eventSource.onerror = () => {
+      console.log("EventSource failed.");
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close(); // Cleanup the EventSource connection when the component unmounts
+    };
+  }, []);
 
   return (
     <div>
@@ -26,7 +35,7 @@ function App() {
         }}
       >
         {messages.map((message, idx) => (
-          <span>
+          <span key={idx}>
             {idx + 1}. {message}
           </span>
         ))}
