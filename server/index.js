@@ -3,7 +3,7 @@ const app = express();
 const moment = require("moment");
 const cors = require("cors");
 
-const port = 3030;
+const port = process.env.PORT || 3000;
 
 app.use(
   cors({
