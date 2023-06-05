@@ -7,7 +7,7 @@ const port = 8000;
 
 app.use(
   cors({
-    origin: "*", //! Allow from anywhere, change this to the frontend URL
+    origin: "http://127.0.0.1:5173", //! Allow from anywhere, change this to the frontend URL
   })
 );
 app.get("/", (req, res) => {
