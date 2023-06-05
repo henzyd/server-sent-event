@@ -3,7 +3,7 @@ const app = express();
 const moment = require("moment");
 const cors = require("cors");
 
-const port = 8000;
+const port = 3030;
 
 app.use(
   cors({
@@ -13,7 +13,7 @@ app.use(
 app.get("/", (req, res) => {
   console.log("GET /");
   res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader("Access-Control-Allow-Origin", "*");
 
   const intervalid = setInterval(() => {
     const data = new Date().toISOString();
